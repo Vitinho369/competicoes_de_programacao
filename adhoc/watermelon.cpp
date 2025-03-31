@@ -1,3 +1,5 @@
+// Link do problema
+// https://codeforces.com/contest/4/problem/A
 #include <bits/stdc++.h>
 
 int main()
