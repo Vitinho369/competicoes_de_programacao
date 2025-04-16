@@ -1,3 +1,4 @@
 
 *.exe
 /adhoc/treasure_hunt.cpp
+/.vscode

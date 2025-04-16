@@ -25,33 +25,104 @@ int main()
             nums.at(cont)
                 .push_back(numLidos);
 
-            mods.at(cont)
-                .push_back(nums.at(cont).back() % numN);
-        }
-        mod = mods.at(cont);
+            // mods.at(cont)
+            //     .push_back(nums.at(cont).back() % numN);
 
-        for (size_t i = 0; i < mod.size(); i++)
-        {
-            printf("mod = %d ", mod.at(i));
+            // printf("%d %d\n", nums.at(cont).back(), nums.at(cont).back() % numN);
         }
+
+        // for (size_t i = 0; i < mods.at(cont).size(); i++)
+        // {
+        //     printf("mod = %d \n", mods.at(cont).at(i));
+        // }
+        // printf("\n");
+
+        // std::sort(mods.at(cont).begin(), mods.at(cont).end());
+        // mod = mods.at(cont);
+        for (size_t i = 0; i < nums.at(cont).size(); i++)
+        {
+            for (size_t j = 0; j < nums.at(cont).size(); j++)
+            {
+                if ((nums.at(cont).at(i) % numN) < (nums.at(cont).at(j) % numN))
+                {
+                    std::swap(nums.at(cont).at(i), nums.at(cont).at(j));
+                }
+            }
+        }
+        cont = 0;
+        for (size_t j = 1; j < nums.at(cont).size(); j++)
+        {
+            if ((nums.at(cont).at(j - 1) % numN) == (nums.at(cont).at(j) % numN))
+            {
+                mods.at(cont).push_back(nums.at(cont).at(j - 1));
+            }
+            else
+            {
+                cont++;
+                mods.push_back({});
+                mods.at(cont).push_back(nums.at(cont).at(j - 1));
+            }
+        }
+
+        for (size_t j = 0; j < mods.size(); j++)
+        {
+            for (size_t i = 0; i < mods.at(j).size(); i++)
+            {
+                for (size_t l = 0; l < mods.at(j).size(); l++)
+                {
+                    if (mods.at(j).at(l) % 2 == 0 && (mods.at(j).at(i) % 2 == 1))
+                    {
+                        std::swap(nums.at(cont).at(i), nums.at(cont).at(j));
+                    }
+                    else if (mods.at(j).at(l) % 2 == 1 && (mods.at(j).at(i) % 2 == 1))
+                    {
+                        if (mods.at(j).at(l) > mods.at(j).at(i))
+                        {
+                            std::swap(nums.at(cont).at(i), nums.at(cont).at(j));
+                        }
+                        else
+                        {
+                            std::swap(nums.at(cont).at(j), nums.at(cont).at(i));
+                        }
+                    }
+                    else if (mods.at(j).at(l) % 2 == 0 && (mods.at(j).at(i) % 2 == 0))
+                    {
+                        if (mods.at(j).at(l) < mods.at(j).at(i))
+                        {
+                            std::swap(nums.at(cont).at(i), nums.at(cont).at(j));
+                        }
+                        else
+                        {
+                            std::swap(nums.at(cont).at(j), nums.at(cont).at(i));
+                        }
+                    }
+                }
+            }
+        }
+
+        // printf("\npos ordenado \n");
+        // for (size_t i = 0; i < mod.size(); i++)
+        // {
+        //     printf("mod = %d num = %d\n", mod.at(i), nums.at(cont).at(i));
+        // }
         printf("\n");
-        std::sort(nums.at(cont).begin(), nums.at(cont).end(),
-                  [&mod](size_t a, size_t b) // Função lambda em c++
-                  {
-                      return mod[a] < mod[b];
-                  });
-
-        mods.at(cont) = mod;
-        cont++;
+        // mods.at(cont) = mod;
     }
-    printf("////////////ORDENADOS//////////////\n");
-    for (size_t i = 0; i < m.size(); i++)
-    {
-        printf("%d %d\n", m.at(i), n.at(i));
+    printf("////////////Modulos//////////////\n");
+    // for (size_t i = 0; i < m.size(); i++)
+    // {
+    //     printf("%d %d\n", m.at(i), n.at(i));
 
-        for (size_t j = 0; j < nums.at(i).size(); j++)
+    //     for (size_t j = 0; j < nums.at(i).size(); j++)
+    //     {
+    //         printf("%d\n", nums.at(i).at(j));
+    //     }
+    // }
+    for (size_t j = 0; j < mods.size(); j++)
+    {
+        for (size_t i = 0; i < mods.at(j).size(); i++)
         {
-            printf("%d\n", nums.at(i).at(j));
+            printf("%d\n", mods.at(j).at(i));
         }
     }
 }
