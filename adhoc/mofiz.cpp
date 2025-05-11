@@ -10,7 +10,6 @@ int main()
         unsigned int numA, numB;
         unsigned int numResult = 0;
         int sucess = scanf("%u %u", &numA, &numB);
-
         if (sucess == EOF)
             break;
 
