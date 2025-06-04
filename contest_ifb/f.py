@@ -1,3 +1,4 @@
+import math
 number = int(input())
 mat = input().split(" ")
 
@@ -10,7 +11,7 @@ while ("*" in mat):
     nums1 = op1.split("/")
     nums2 = op2.split("/")
     res = int(nums1[0]) * int(nums2[0])
-    res = f"{res}/{int(nums1[1] * int(nums2[1]))}"
+    res = str(res) + "/" + str(int(nums1[1]) * int(nums2[1]))
     
     mat.insert(index, res)
     mat.remove("*")
@@ -33,8 +34,8 @@ while ("/" in mat):
     mat.remove(op2)
 
 ops = []
-for i in range(0, len(mat)):
-    if(mat[i] == "+"):
+for i in range(0, len(mat)-1):
+    if(i < len(mat) and mat[i] == "+"):
         ops.append(mat[i+1])
         nums1 = ops[0].split("/")
         num1 = int(nums1[0])
@@ -81,5 +82,4 @@ while(True):
         denominador /=7
     else:
         break
-
 print(f"{int(numerador)}/{int(denominador)}")
