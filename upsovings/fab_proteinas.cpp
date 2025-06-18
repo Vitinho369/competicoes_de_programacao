@@ -1,38 +1,49 @@
 #include <bits/stdc++.h>
 using namespace std;
+
+string dna;
+
+bool compLower(int idx, const string &s)
+{
+    return dna.compare(idx, s.size(), s) < 0;
+}
+
+bool compUpper(const string &s, int idx)
+{
+    return s.compare(dna.substr(idx, s.size())) < 0;
+}
+
 int main()
 {
-    int h, j;
-    cin >> h >> j;
-    string dna, prot;
-    getchar();
-    getline(cin, dna);
-    getline(cin, prot);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    int p;
-    cin >> p;
-    int a, b;
-    int tam;
-    string new_prot, dna_copy;
-    int cont;
-    for (int i = 0; i < p; i++)
+    int N, M;
+    cin >> N >> M;
+    cin >> dna;
+
+    string proteina;
+    cin >> proteina;
+
+    vector<int> suffix_array(N);
+    iota(suffix_array.begin(), suffix_array.end(), 0);
+
+    sort(suffix_array.begin(), suffix_array.end(), [](int a, int b)
+         { return dna.substr(a) < dna.substr(b); });
+
+    int Q;
+    cin >> Q;
+
+    while (Q--)
     {
-        dna_copy = dna;
-        cont = 0;
-        cin >> a >> b;
-        if (a > b)
-            tam = (a - b) + 1;
-        else
-            tam = (b - a) + 1;
+        int A, B;
+        cin >> A >> B;
+        string query = proteina.substr(A - 1, B - A + 1);
 
-        new_prot = prot.substr(a - 1, tam);
+        auto lower = lower_bound(suffix_array.begin(), suffix_array.end(), query, compLower);
+        auto upper = upper_bound(suffix_array.begin(), suffix_array.end(), query, compUpper);
 
-        int busca = dna.find(new_prot);
-        for (int i = 0; i < dna_copy.size(); i++)
-        {
-            sort(dna_copy.begin() + i, dna_copy.begin() + i + tam);
-            cout << dna_copy << "\n";
-        }
+        cout << (upper - lower) << "\n";
     }
 
     return 0;
